@@ -18,7 +18,7 @@ const Navbar = styled.div`
 const Menubar = styled.div`
   padding: 35px 0px 0px 0px;
   /* display: inline; */
-  margin: 80px 0px 30px 0px;
+  margin: 70px 0px 30px 0px;
   width: 60px;
   text-align: center;
   transform: rotate(-90deg);
@@ -32,13 +32,13 @@ const Menubar = styled.div`
 `
 
 const ToggleClose = styled.img`
-  padding: 45px 28px 45px 28px;
+  padding: 40px 28px 40px 28px;
   border-bottom: 2px solid rgb(242, 242, 242);
   cursor: pointer;
 `
 
 const ToggleOpen = styled.img`
-  padding: 43px 33px 45px 45px;
+  padding: 40px 42px 40px 42px;
   cursor: pointer;
   visibility: ${props => props.show ? 'hidden' : 'visible'};
   opacity: ${props => props.opcity ? '0' : '1'};
@@ -81,8 +81,8 @@ const Col = styled.div`
 `
 
 const Title = styled.div`
-  font-size: ${props => props.h1 ? '60px' : '34px'};
-  margin-top: 20px;
+  font-size: ${props => props.h1 ? '54px' : '28px'};
+  margin-top: ${props => props.h1 ? '20px' : '48px'};
   @import url('https://fonts.googleapis.com/css?family=Vidaloka');
   font-family: 'Vidaloka', serif;
   font-weight: bold;
@@ -100,19 +100,19 @@ const Article = styled.p`
 `
 
 const ListTitle = styled.p`
-  width: 220px;
   margin-left: 35px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 `
 
 const ListArticle = styled.div`
-  width: 300px;
+  width: ${props => props.show ? '300px' : '410px'};
   &::after {
     content: '';
     display: table;
     clear: both;
   }
+  transition: width .25s;
   border-bottom: 2px solid rgb(242, 242, 242);
   padding-bottom: 10px;
   margin: 15px 0px 15px 0px;
@@ -135,7 +135,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ToggleOpen onClick={this.handleNavbar.bind(this)} show={this.state.showNavbar} opcity={this.state.showNavbar} src="https://cdn-std.dprcdn.net/files/acc_691706/kSdjSF?download" height="25px" width="25px" />
+        <ToggleOpen onClick={this.handleNavbar.bind(this)} show={this.state.showNavbar} opcity={this.state.showNavbar} src="https://cdn-std.dprcdn.net/files/acc_691706/kSdjSF?download" height="22px" width="22px" />
         <Navbar show={this.state.showNavbar} opcity={this.state.showNavbar}>
           <ToggleClose onClick={this.handleNavbar.bind(this)} src="https://image.flaticon.com/icons/svg/151/151882.svg" height="20px" width="50px"></ToggleClose>
           <Menubar>HOME</Menubar>
@@ -162,7 +162,8 @@ class App extends Component {
                     <img src="https://cdn-std.dprcdn.net/files/acc_691706/dkGufc?download" />
                     </Col>
                     <Col grid={1}>
-                    <p></p></Col>
+                    <p></p>
+                    </Col>
                     <Col grid={11}>
                       <Row>
                       <p><strong>Samantha William</strong><br></br>
@@ -191,9 +192,9 @@ class App extends Component {
             <Col grid={5}>
               <Row>
                 <Title>Most Popular Article</Title>
-                <h4 style={{color: 'rgb(153, 153, 153)'}}>Based on the number of read and views</h4>
+                <h5 style={{color: 'rgb(153, 153, 153)'}}>Based on the number of read and views</h5>
               </Row>
-              <ListArticle>
+              <ListArticle show={this.state.showNavbar}>
                 <Col grid={3}>
                 <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
                 </Col>
@@ -203,7 +204,7 @@ class App extends Component {
                   </Row>
                 </Col>
               </ListArticle>
-              <ListArticle>
+              <ListArticle show={this.state.showNavbar}>
                 <Col grid={3}>
                 <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
                 </Col>
@@ -213,7 +214,7 @@ class App extends Component {
                   </Row>
                 </Col>
               </ListArticle>
-              <ListArticle>
+              <ListArticle show={this.state.showNavbar}>
                 <Col grid={3}>
                 <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
                 </Col>
@@ -223,7 +224,7 @@ class App extends Component {
                   </Row>
                 </Col>
               </ListArticle>
-              <ListArticle>
+              <ListArticle show={this.state.showNavbar}>
                 <Col grid={3}>
                 <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
                 </Col>
@@ -233,7 +234,7 @@ class App extends Component {
                   </Row>
                 </Col>
               </ListArticle>
-              <ListArticle>
+              <ListArticle show={this.state.showNavbar}>
                 <Col grid={3}>
                 <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
                 </Col>
