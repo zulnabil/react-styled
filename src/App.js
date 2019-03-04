@@ -116,14 +116,62 @@ const ListArticle = styled.div`
   border-bottom: 2px solid rgb(242, 242, 242);
   padding-bottom: 10px;
   margin: 15px 0px 15px 0px;
+  cursor: pointer;
 `
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showNavbar: true
+      article: [
+        {
+          id: 1,
+          title: 'Learn about happiness from children',
+          content: 'Adults often think that children are the ones who should be learning from their parents, that happy children are eternal students of life and that they’re placed in the hands of society to either become successful or not.',
+          author: 'Shawn Mendes',
+          pic: 'https://cdn-std.dprcdn.net/files/acc_691706/UmbIoY?download'
+        },
+        {
+          id: 2,
+          title: 'How to be the best of yourself',
+          content: 'Just show up. Say you want to run a marathon, but have no prior experience. The first step is lacing up you shoes and hitting the pavement. Even if you only make it half a mile on your first training run.',
+          author: 'Calum Hood',
+          pic: 'https://cdn-std.dprcdn.net/files/acc_691706/5WgfGt?download'
+        },
+        {
+          id: 3,
+          title: 'Meet a lot of people and to be happy',
+          content: 'Each country and people have traditions as to how to entertain people when they meet them. If you know some of it, you can prepare for them so that they will meet you also in a happy tune of meeting.',
+          author: 'Chris Evans',
+          pic: 'https://cdn-std.dprcdn.net/files/acc_691706/kfVcth?download'
+        },
+        {
+          id: 4,
+          title: 'Handling your stress with smile',
+          content: 'A new study indicates that the mere act of smiling can help us deal with stressful situations more easily. Wrong. A fascinating new study by University of Kansas psychologists that will soon be published.',
+          author: 'Tony Stark',
+          pic: 'https://cdn-std.dprcdn.net/files/acc_691706/7lw6B3?download'
+        },
+        {
+          id: 5,
+          title: 'Is Technology Re-Engineering Humanity',
+          content: '“We become what we behold. We shape our tools and then our tools shape us.” This truism—by the media-scholar John Culkin about the work of Marshall McLuhan—is more potent than ever in the age of data and algorithms.',
+          author: 'Will Smith',
+          pic: 'https://cdn-std.dprcdn.net/files/acc_691706/Y8C8na?download'
+        }
+      ],
+      articleActive: [{
+        id: 5,
+        title: 'Is Technology Re-Engineering Humanity',
+        content: '“We become what we behold. We shape our tools and then our tools shape us.” This truism—by the media-scholar John Culkin about the work of Marshall McLuhan—is more potent than ever in the age of data and algorithms.',
+        author : 'Will Smith',
+        pic: 'https://cdn-std.dprcdn.net/files/acc_691706/Y8C8na?download'
+      }],
+      showNavbar: true,
+      activeArticle: 1
     }
+    this.handleArticle = this.handleArticle.bind(this);
+    const rnd = this.randomArticle();
   }
 
   handleNavbar() {
@@ -131,6 +179,32 @@ class App extends Component {
       showNavbar: !this.state.showNavbar
     })
   }
+
+  randomArticle() {
+    let rnd = Math.floor(Math.random()*5)+1
+    this.setState({
+      activeArticle: rnd
+    })
+  }
+
+  handleArticle(choose) {
+    this.setState({
+      activeArticle: choose.target.alt
+      // articleActive: this.state.article.filter(function(active) {
+      //   return active.id === choose.target.alt;
+      // })
+    })
+
+    // console.log(this.state.article.filter(function(active) {
+    //   return active.id == choose.target.alt;
+    // }))
+  }
+
+  componentDidMount() {
+    this.randomArticle()
+  }
+
+  
 
   render() {
     return (
@@ -150,7 +224,7 @@ class App extends Component {
               <img src="https://cdn-std.dprcdn.net/files/acc_691706/J3mbK9?download" height="335px" />
               <Row>
                 <Col grid={8}>
-                <Title h1>Change the World, to be a better place</Title>
+                <Title h1>{this.state.article[this.state.activeArticle].title}</Title>
                 </Col>
                 <Col grid={1}>
                 <p></p>
@@ -159,14 +233,14 @@ class App extends Component {
                 <Author>
                   <Row>
                     <Col grid={4}>
-                    <img src="https://cdn-std.dprcdn.net/files/acc_691706/dkGufc?download" />
+                    <img src={this.state.article[this.state.activeArticle].pic} height="70px" width="70px" />
                     </Col>
                     <Col grid={1}>
                     <p></p>
                     </Col>
                     <Col grid={11}>
                       <Row>
-                      <p><strong>Samantha William</strong><br></br>
+                      <p><strong>{this.state.article[this.state.activeArticle].author}</strong><br></br>
                       2 days ago</p>
                       </Row>
                     </Col>
@@ -176,13 +250,13 @@ class App extends Component {
               </Row>
               <Row>
                 <Col grid={8}>
-                  <Article>Lorem Ipsum is simply dummy text of the printing and typestting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Article>
+                  <Article>{this.state.article[this.state.activeArticle].content}</Article>
                 </Col>
                 <Col grid={1}>
                 <p></p>
                 </Col>
                 <Col grid={7}>
-                  <Article>Lorem Ipsum is simply dummy text of the printing and typestting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</Article>
+                  <Article>{this.state.article[this.state.activeArticle].content}</Article>
                 </Col>
               </Row>
             </Col>
@@ -194,56 +268,20 @@ class App extends Component {
                 <Title>Most Popular Article</Title>
                 <h5 style={{color: 'rgb(153, 153, 153)'}}>Based on the number of read and views</h5>
               </Row>
-              <ListArticle show={this.state.showNavbar}>
-                <Col grid={3}>
-                <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
-                </Col>
-                <Col grid={13}>
-                  <Row>
-                  <ListTitle>Learn about happiness from children</ListTitle>
-                  </Row>
-                </Col>
-              </ListArticle>
-              <ListArticle show={this.state.showNavbar}>
-                <Col grid={3}>
-                <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
-                </Col>
-                <Col grid={13}>
-                  <Row>
-                  <ListTitle>How to be the best of yourself</ListTitle>
-                  </Row>
-                </Col>
-              </ListArticle>
-              <ListArticle show={this.state.showNavbar}>
-                <Col grid={3}>
-                <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
-                </Col>
-                <Col grid={13}>
-                  <Row>
-                  <ListTitle>Meet a lot of people nad be happy</ListTitle>
-                  </Row>
-                </Col>
-              </ListArticle>
-              <ListArticle show={this.state.showNavbar}>
-                <Col grid={3}>
-                <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
-                </Col>
-                <Col grid={13}>
-                  <Row>
-                  <ListTitle>Handling your stress with smile</ListTitle>
-                  </Row>
-                </Col>
-              </ListArticle>
-              <ListArticle show={this.state.showNavbar}>
-                <Col grid={3}>
-                <img height="80px" src="https://cdn-std.dprcdn.net/files/acc_691706/i7pJ4F?download" />
-                </Col>
-                <Col grid={12}>
-                  <Row>
-                  <ListTitle>How to be the best of yourself</ListTitle>
-                  </Row>
-                </Col>
-              </ListArticle>
+              {this.state.article.map((article, index) => {
+                return (
+                  <ListArticle onClick={this.handleArticle} key={index+1} show={this.state.showNavbar}>
+                    <Col grid={3}>
+                    <img height="80px" width="80px" src={article.pic} alt={index+1} />
+                    </Col>
+                    <Col grid={13}>
+                      <Row>
+                      <ListTitle>{article.title}</ListTitle>
+                      </Row>
+                    </Col>
+                  </ListArticle>
+                )
+              })}
             </Col>
           </Row>
         </Container>
