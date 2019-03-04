@@ -112,11 +112,15 @@ const ListArticle = styled.div`
     display: table;
     clear: both;
   }
-  transition: width .25s;
+  transition: width .25s, border-color .25s;
   border-bottom: 2px solid rgb(242, 242, 242);
   padding-bottom: 10px;
   margin: 15px 0px 15px 0px;
   cursor: pointer;
+  border-right: 10px solid white;
+  &:hover {
+    border-right: 10px solid salmon;
+  }
 `
 
 class App extends Component {
@@ -181,10 +185,11 @@ class App extends Component {
   }
 
   randomArticle() {
-    let rnd = Math.floor(Math.random()*5)+1
-    this.setState({
-      activeArticle: rnd
-    })
+    let rnd = Math.floor(Math.random()*4)+1
+    // this.setState({
+    //   activeArticle: rnd
+    // })
+    this.state.activeArticle = rnd;
   }
 
   handleArticle(choose) {
@@ -194,13 +199,14 @@ class App extends Component {
       //   return active.id === choose.target.alt;
       // })
     })
+    console.log(choose.target.alt)
 
     // console.log(this.state.article.filter(function(active) {
     //   return active.id == choose.target.alt;
     // }))
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.randomArticle()
   }
 
@@ -272,7 +278,7 @@ class App extends Component {
                 return (
                   <ListArticle onClick={this.handleArticle} key={index+1} show={this.state.showNavbar}>
                     <Col grid={3}>
-                    <img height="80px" width="80px" src={article.pic} alt={index+1} />
+                    <img height="80px" width="80px" src={article.pic} alt={index} />
                     </Col>
                     <Col grid={13}>
                       <Row>
