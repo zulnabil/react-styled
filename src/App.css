@@ -31,3 +31,9 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(64, 64, 64);
+}
