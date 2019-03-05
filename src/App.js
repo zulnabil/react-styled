@@ -18,7 +18,7 @@ const Navbar = styled.div`
 const Menubar = styled.div`
   padding: 35px 0px 0px 0px;
   /* display: inline; */
-  margin: 70px 0px 30px 0px;
+  margin: 50px 0px 30px 0px;
   width: 60px;
   text-align: center;
   transform: rotate(-90deg);
@@ -123,6 +123,14 @@ const ListArticle = styled.div`
   }
 `
 
+const MostArticle = styled.div`
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  margin-right: 30px;
+`
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -189,15 +197,16 @@ class App extends Component {
     // this.setState({
     //   activeArticle: rnd
     // })
+    
     this.state.activeArticle = rnd;
   }
 
   handleArticle(choose) {
     this.setState({
-      activeArticle: choose.target.alt
-      // articleActive: this.state.article.filter(function(active) {
-      //   return active.id === choose.target.alt;
-      // })
+      // activeArticle: choose.target.key
+      articleActive: this.state.article.filter(function(active) {
+        return active.title === choose.target.alt;
+      })
     })
     console.log(choose.target.alt)
 
@@ -206,9 +215,9 @@ class App extends Component {
     // }))
   }
 
-  componentWillMount() {
-    this.randomArticle()
-  }
+  // componentWillMount() {
+  //   this.randomArticle()
+  // }
 
   
 
@@ -230,7 +239,7 @@ class App extends Component {
               <img src="https://cdn-std.dprcdn.net/files/acc_691706/J3mbK9?download" height="335px" />
               <Row>
                 <Col grid={8}>
-                <Title h1>{this.state.article[this.state.activeArticle].title}</Title>
+                <Title h1>{this.state.articleActive[0].title}</Title>
                 </Col>
                 <Col grid={1}>
                 <p></p>
@@ -239,14 +248,14 @@ class App extends Component {
                 <Author>
                   <Row>
                     <Col grid={4}>
-                    <img src={this.state.article[this.state.activeArticle].pic} height="70px" width="70px" />
+                    <img src={this.state.articleActive[0].pic} height="70px" width="70px" />
                     </Col>
                     <Col grid={1}>
                     <p></p>
                     </Col>
                     <Col grid={11}>
                       <Row>
-                      <p><strong>{this.state.article[this.state.activeArticle].author}</strong><br></br>
+                      <p><strong>{this.state.articleActive[0].author}</strong><br></br>
                       2 days ago</p>
                       </Row>
                     </Col>
@@ -256,13 +265,13 @@ class App extends Component {
               </Row>
               <Row>
                 <Col grid={8}>
-                  <Article>{this.state.article[this.state.activeArticle].content}</Article>
+                  <Article>{this.state.articleActive[0].content}</Article>
                 </Col>
                 <Col grid={1}>
                 <p></p>
                 </Col>
                 <Col grid={7}>
-                  <Article>{this.state.article[this.state.activeArticle].content}</Article>
+                  <Article>{this.state.articleActive[0].content}</Article>
                 </Col>
               </Row>
             </Col>
@@ -270,24 +279,24 @@ class App extends Component {
             <p></p>
             </Col>
             <Col grid={5}>
-              <Row>
-                <Title>Most Popular Article</Title>
-                <h5 style={{color: 'rgb(153, 153, 153)'}}>Based on the number of read and views</h5>
-              </Row>
-              {this.state.article.map((article, index) => {
-                return (
-                  <ListArticle onClick={this.handleArticle} key={index+1} show={this.state.showNavbar}>
-                    <Col grid={3}>
-                    <img height="80px" width="80px" src={article.pic} alt={index} />
-                    </Col>
-                    <Col grid={13}>
-                      <Row>
-                      <ListTitle>{article.title}</ListTitle>
-                      </Row>
-                    </Col>
-                  </ListArticle>
-                )
-              })}
+              <MostArticle>
+                  <Title>Most Popular Article</Title>
+                  <h5 style={{color: 'rgb(153, 153, 153)'}}>Based on the number of read and views</h5>
+                    {this.state.article.map((article) => {
+                      return (
+                        <ListArticle onClick={this.handleArticle} show={this.state.showNavbar}>
+                          <Col grid={3}>
+                          <img height="80px" width="80px" src={article.pic} alt={article.title} />
+                          </Col>
+                          <Col grid={13}>
+                            <Row>
+                            <ListTitle>{article.title}</ListTitle>
+                            </Row>
+                          </Col>
+                        </ListArticle>
+                      )
+                    })}
+                </MostArticle>
             </Col>
           </Row>
         </Container>
